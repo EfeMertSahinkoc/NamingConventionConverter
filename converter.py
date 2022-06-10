@@ -87,7 +87,8 @@ for line in openFile:
             new = camel_to_kebab_case(newF[5])
             replaced = replacing(line,newF[5],new)
             print(replaced)
-    arr.append(line)
+    arr.append(replaced)
+    print(arr)
     with open("renamedVersion.txt","w") as f:
         for i in arr:
             f.write(i)
