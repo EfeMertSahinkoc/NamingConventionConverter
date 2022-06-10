@@ -50,45 +50,45 @@ for line in openFile:
     if search(look,snake):
         print("Snake to ...")
         opt = input("Enter your choice (c,k): ")
+        print(opt)
         while opt !="c" and opt !="k":
             opt = input("Enter a valid choice (c,k):")
         if opt == "c":
             new = snake_to_camel_case(newF[5])
             replaced = replacing(line,newF[5],new)
-            arr.append(line)
         else:
             new = snake_to_kebab_case(newF[5])
             replaced = replacing(line,newF[5],new)
-            arr.append(line)
             
     if search(look,kebab):
-        print("Snake to ...")
+        print("Kebab to ...")
         opt = input("Enter your choice (s,c): ")
+        print(opt)
         while opt !="c" and opt !="s":
             opt = input("Enter a valid choice (s,c):")
         if opt == "c":
             new = kebab_to_camel_case(newF[5])
             replaced = replacing(line,newF[5],new)
-            arr.append(line)
         else:
             new = kebab_to_snake_case(newF[5])
             replaced = replacing(line,newF[5],new)
-            arr.append(line)
     
     if search(look,kebab) != True and search(look,snake) != True : 
         print("Camel to ...")
         opt = input("Enter your choice (s,k): ")
+        print(opt)
         while opt !="k" and opt !="s":
             opt = input("Enter a valid choice (s,k):")
         if opt == "s":
             new = camel_to_kebab_case(newF[5])
             replaced = replacing(line,newF[5],new)
-            arr.append(line)
         else:
             new = camel_to_snake_case(newF[5])
             replaced = replacing(line,newF[5],new)
-            arr.append(line)
     
-    
+    arr.append(line)
+with open("renamedVersion.txt","w") as f:
+    for i in arr:
+        f.write(i)
         
     
