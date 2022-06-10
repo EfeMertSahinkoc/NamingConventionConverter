@@ -87,8 +87,12 @@ for line in openFile:
             replaced = replacing(line,newF[5],new)
     
     arr.append(line)
+    
+    
 with open("renamedVersion.txt","w") as f:
     for i in arr:
         f.write(i)
+        
+        
         
     
