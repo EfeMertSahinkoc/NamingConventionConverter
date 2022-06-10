@@ -59,7 +59,7 @@ for line in openFile:
         else:
             new = snake_to_kebab_case(newF[5])
             replaced = replacing(line,newF[5],new)
-            
+
     if search(look,kebab):
         print("Kebab to ...")
         opt = input("Enter your choice (s,c): ")
@@ -72,7 +72,7 @@ for line in openFile:
         else:
             new = kebab_to_snake_case(newF[5])
             replaced = replacing(line,newF[5],new)
-    
+
     if search(look,kebab) != True and search(look,snake) != True : 
         print("Camel to ...")
         opt = input("Enter your choice (s,k): ")
@@ -80,19 +80,16 @@ for line in openFile:
         while opt !="k" and opt !="s":
             opt = input("Enter a valid choice (s,k):")
         if opt == "s":
-            new = camel_to_kebab_case(newF[5])
-            replaced = replacing(line,newF[5],new)
-        else:
             new = camel_to_snake_case(newF[5])
             replaced = replacing(line,newF[5],new)
-    
+            print(replaced)
+        else:
+            new = camel_to_kebab_case(newF[5])
+            replaced = replacing(line,newF[5],new)
+            print(replaced)
     arr.append(line)
-    
-    
-with open("renamedVersion.txt","w") as f:
-    for i in arr:
-        f.write(i)
-        
-        
+    with open("renamedVersion.txt","w") as f:
+        for i in arr:
+            f.write(i)
         
     
