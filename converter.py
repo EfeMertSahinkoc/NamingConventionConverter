@@ -1,18 +1,33 @@
 
-####################################################################
-def replacing(line,a,b):
-    x = line.replace(a,b)
-    return x
+def index_in_list(a_list, index):
+    if(index < len(a_list)):
+        return True
+    return False
 
-def search(list, platform):
-    for i in range(len(list)):
-        if list[i] == platform:
-            return True
+def spliting(word):
+    return [char for char in word]
+
+def search(list, rule):
+    for i in list:
+        a = spliting(i)
+        for one in a:
+            if one == rule:
+                return True
+    return False
+
+def isCamel(list):
+    for i in list:
+        a = spliting(i)
+        for one in a:
+            if one.isupper():
+                return True
     return False
 
 def snake_to_camel_case(snake_str):
-   components = snake_str.split("_")
-   return components[0]+''.join(x.title() for x in components)
+    components = snake_str.split("_")
+    if index_in_list(components,1):
+        return components[0]+''.join(x.title() for x in components)
+    return components[0]
 
 def snake_to_kebab_case(kebabStr):
    return kebabStr.replace("_","-")
@@ -22,7 +37,9 @@ def kebab_to_snake_case(snakeStr):
 
 def kebab_to_camel_case(kebab):
     components = kebab.split('-')
-    return components[0] + ''.join(x.title() for x in components[1:])
+    if index_in_list(components,1):
+        return components[0] + ''.join(x.title() for x in components[1:])
+    return components[0]
 
 def camel_to_snake_case(str):
     return ''.join(['_'+i.lower() if i.isupper()
@@ -31,66 +48,108 @@ def camel_to_snake_case(str):
 def camel_to_kebab_case(str):
     return ''.join(['-'+i.lower() if i.isupper()
                                   else i for i in str]).lstrip('-')
-####################################################################
-
-
-
-
+    
+def convert(currentType,newType,array):
+    newArray = []
+    if currentType == underScore:
+        if newType == "c":
+            for r in array:
+                a = snake_to_camel_case(r)
+                newArray.append(a)
+        if newType == "k":
+            for r in array:
+                a = snake_to_kebab_case(r)
+                newArray.append(a)
+    if currentType == dash:
+        if newType == "c":
+            for r in array:
+                a = kebab_to_camel_case(r)
+                newArray.append(a)
+        if newType == "s":
+            for r in array:
+                a = kebab_to_snake_case(r)
+                newArray.append(a)
+    if currentType == "camel":
+        if newType == "s":
+            for r in array:
+                a = camel_to_snake_case(r)
+                newArray.append(a)
+        if newType == "k":
+            for r in array:
+                a = camel_to_kebab_case(r)
+                newArray.append(a)
+    return newArray
+            
+            
 #!  write the correct file name  !#
 openFile = open("hello.txt","r")
+#!  write the correct file name  !#
 
-arr  = []
-look = []
+
+print("\nWelcome...\n")
+
+allArr = []
+allNewArr = []
+variableNames = []
+newVariableNames = []
+
 for line in openFile:
+    
+    allArr.append(line)
     newF = line.split(" ")
-    look = list(newF[5])
-    snake = "_"
-    kebab = "-"
-    
-    if search(look,snake):
-        print("Snake to ...")
-        opt = input("Enter your choice (c,k): ")
-        print(opt)
-        while opt !="c" and opt !="k":
-            opt = input("Enter a valid choice (c,k):")
-        if opt == "c":
-            new = snake_to_camel_case(newF[5])
-            replaced = replacing(line,newF[5],new)
-        else:
-            new = snake_to_kebab_case(newF[5])
-            replaced = replacing(line,newF[5],new)
+    variableNames.append(newF[5])
+    underScore = "_"
+    dash = "-"
+    varSize = len(variableNames)
 
-    if search(look,kebab):
-        print("Kebab to ...")
-        opt = input("Enter your choice (s,c): ")
-        print(opt)
-        while opt !="c" and opt !="s":
-            opt = input("Enter a valid choice (s,c):")
-        if opt == "c":
-            new = kebab_to_camel_case(newF[5])
-            replaced = replacing(line,newF[5],new)
-        else:
-            new = kebab_to_snake_case(newF[5])
-            replaced = replacing(line,newF[5],new)
-
-    if search(look,kebab) != True and search(look,snake) != True : 
-        print("Camel to ...")
-        opt = input("Enter your choice (s,k): ")
-        print(opt)
-        while opt !="k" and opt !="s":
-            opt = input("Enter a valid choice (s,k):")
-        if opt == "s":
-            new = camel_to_snake_case(newF[5])
-            replaced = replacing(line,newF[5],new)
-            print(replaced)
-        else:
-            new = camel_to_kebab_case(newF[5])
-            replaced = replacing(line,newF[5],new)
-            print(replaced)
-    arr.append(replaced)
-    print(arr)
-    with open("renamedVersion.txt","w") as f:
-        for i in arr:
-            f.write(i)
+    if search(variableNames,underScore):
+        typeCurrent = underScore
+    if search(variableNames,dash):
+        typeCurrent = dash
+    if isCamel(variableNames):
+        typeCurrent = "camel"
         
+if(isCamel(variableNames) == True and search(variableNames, underScore) or isCamel(variableNames) == True and search(variableNames,underScore)):
+    print("Could not understand the type please enter type!")
+    inputT = input("Type is (camel:c,snake:s,kebab:k) :")
+    while inputT != "c" and inputT != "s" and inputT != "k":
+        inputT = input("Please enter a valid type:")
+    if(inputT == "c"):
+        typeCurrent = "camel"
+    if(inputT == "s"):
+        typeCurrent = underScore
+    if(inputT == "k"):
+        typeCurrent = dash
+
+if typeCurrent == underScore:
+    typeNew = input("Current type is snake, please enter new type:")
+    while typeNew != "c" and typeNew != "k":
+        typeNew = input("Please enter a valid type(Only 'c' or 'k'):")
+    newVariableNames = convert(typeCurrent, typeNew, variableNames)
     
+if typeCurrent == dash:
+    typeNew = input("Current type is kebab, please enter new type:")
+    while typeNew != "c" and typeNew != "s":
+        typeNew = input("Please enter a valid type(Only 'c' or 's'):")
+    newVariableNames = convert(typeCurrent, typeNew, variableNames)
+        
+if typeCurrent == "camel":
+    typeNew = input("Current type is camel, please enter a new type:")
+    while typeNew != "k" and typeNew != "s":
+        typeNew = input("Please enter a valid type(Only 'k' or 's'):")
+    newVariableNames = convert(typeCurrent, typeNew, variableNames)
+    
+
+size = len(allArr)
+i=0
+
+for all in allArr:
+    
+    replaced = all.replace(variableNames[i],newVariableNames[i])
+    allNewArr.append(replaced)
+    if(i!=size):
+        i+=1
+    
+with open("newVersion","w") as f:
+    for abc in allNewArr:
+        f.write(abc)
