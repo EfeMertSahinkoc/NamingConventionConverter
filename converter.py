@@ -26,7 +26,7 @@ def isCamel(list):
 def snake_to_camel_case(snake_str):
     components = snake_str.split("_")
     if index_in_list(components,1):
-        return components[0]+''.join(x.title() for x in components)
+        return components[0]+''.join(x.title() for x in components[1:])
     return components[0]
 
 def snake_to_kebab_case(kebabStr):
