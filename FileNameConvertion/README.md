@@ -10,8 +10,6 @@ You can use with any file extension.
 
 --> After you run the program it identifies the type of the case and show user which options can choose.
 
---> Program may don't understand the type, in that case it ask user to enter the type. After user's input programs start working.
-
 --> As a result program creates a file named "renamedVersion". You can find converted files here. 
 #
 
